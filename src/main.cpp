@@ -2,9 +2,12 @@
 #include <STM32FreeRTOS.h>
 
 #include "wheeledbase/wb_thread.h"
+#include "screen/screen.h"
 
 
 #define TEST_NO_FREERTOS true //Ignore le FreeRTOS et se comporte comme un arduino classique
+
+screen::Screen ecran(0, 1, 2, 3, 4, 5, 6, 7, true, 9, 10);
 
 void setup(){
     //Setup de base
@@ -25,18 +28,5 @@ long a,b,c,d;
 
 void loop() {
     //loop seuleuement accesssible quand TEST_NO_FREERTOS est à true
-    a = leftCodewheel.getCounter();
-    b = rightCodewheel.getCounter();
-    c = leftCodewheel.getTraveledDistance();
-    d = rightCodewheel.getTraveledDistance();
-    Serial.print("LEFT: ");
-    Serial.print(a);
-    Serial.print(" ");
-    Serial.print(b);
-    Serial.print(" | RIGHT ");
-    Serial.print(c);
-    Serial.print(" ");
-    Serial.println(d);
-
-    wb_loop();
+    ecran.writeTextAndSend("Hello World");
 }
