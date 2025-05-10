@@ -167,6 +167,8 @@ void Wheeledbase::PUREPURSUIT(const Position** waypoints, uint16_t nb_waypoints,
 
 void Wheeledbase::GOTO(Position* pos, char dir, float finalAngle) {
 
+    float defaultMaxSpeed = Wheeledbase::GET_PARAMETER_VALUE(POSITIONCONTROL_LINVELMAX_ID);
+
     const Position *myPos = Wheeledbase::GET_POSITION();
     if (dir==PurePursuit::NONE) {
         if(cos(atan2(pos->y-myPos->y, pos->x-myPos->x)-myPos->theta)) {
@@ -180,16 +182,25 @@ void Wheeledbase::GOTO(Position* pos, char dir, float finalAngle) {
     const Position *posTab[2]={myPos, pos};
     Wheeledbase::PUREPURSUIT(posTab, 2, dir, finalAngle);//TODO
 
-    while(Wheeledbase::POSITION_REACHED()!=0b01) {
+    double maxSpeed = defaultMaxSpeed;
+
+    while(!(Wheeledbase::POSITION_REACHED() & 0b01)) {
         const Position *posi = Wheeledbase::GET_POSITION();
+        int distance = sqrt(pow(posi->x-pos->x, 2)+pow(posi->y-pos->y, 2));
+        if (distance<SLOWDOWN_DISTANCE){
+            maxSpeed = maxSpeed > defaultMaxSpeed*0.1 ? maxSpeed * SLOWDOWN_FACTOR : maxSpeed;
+            Wheeledbase::SET_PARAMETER_VALUE(POSITIONCONTROL_LINVELMAX_ID, maxSpeed);
+        }
         //printf("%f %f %f %f, %f, %f\n", pos->x, pos->y, pos->theta, posi->x, posi->y, posi->theta);
         //Do nothing
     }
 
+    Wheeledbase::SET_PARAMETER_VALUE(POSITIONCONTROL_LINVELMAX_ID, defaultMaxSpeed);
+
     if(pos->theta!=MAXFLOAT) {
 
         Wheeledbase::START_TURNONTHESPOT(0, pos->theta);
-        while(Wheeledbase::POSITION_REACHED()!=0b01) {
+        while(!(Wheeledbase::POSITION_REACHED() & 0b01)) {
             //Todo: TimeOUT
         }
     }
