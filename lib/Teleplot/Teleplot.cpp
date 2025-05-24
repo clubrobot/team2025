@@ -4,70 +4,130 @@
 
 #include "Teleplot.h"
 
-#define BEACON_MSG_LEN_MAX 50
 
-char teleplot_tampon[BEACON_MSG_LEN_MAX]="";
 
-long teleplote_temps_ms;
-bool teleplot_temps_fige;
-
-void Teleplot_send_string(){
-    printf(teleplot_tampon);
+/// @brief Envoie le contenu du tampon de téléplot
+void Teleplot::send_string(){
+    printf("%s", this->tampon);
 }
 
 /// @brief Renvoi le temps en milliseconde, le temps réel ou le temps figé
 /// @param
 /// @return temps en millisecondes
-long Teleplot_get_temps(void){
-    if(teleplot_temps_fige){
-        return teleplote_temps_ms;
+long Teleplot::get_temps() const{
+    if(this->temps_fige){
+        return this->temps_ms;
     }
     return (long) (micros()/1000);
 }
 
 /// @brief Permet de "bloquer le temps" pour recevoir toutes les données datées à la même milliseconde
 /// Simplifie beaucoup le traitement des données en CSV lors d'un import dans un tableur.
-void Teleplot_fige_temps(void){
-    teleplot_temps_fige = false;
-    teleplote_temps_ms = Teleplot_get_temps();
-    teleplot_temps_fige = true;
+void Teleplot::fige_temps(){
+    this->temps_fige = false;
+    this->temps_ms = this->get_temps();
+    this->temps_fige = true;
 }
-void Teleplot_relache_temps(void){
-    teleplot_temps_fige = false;
-}
-
-
-void Teleplot_envoie_tampon(void){
-    Teleplot_send_string();
-    teleplot_tampon[0]='\0'; // On "vide" le tampon
+/// @brief Relâche le temps quand il est figé
+/// Permet de reprendre le temps réel après un figement
+void Teleplot::relache_temps(){
+    this->temps_fige = false;
 }
 
+/// @brief Envoie le contenu du tampon de téléplot
+/// Envoie le contenu du tampon de téléplot et vide le tampon
+void Teleplot::envoie_tampon(){
+    this->send_string();
+    this->tampon[0]='\0'; // On "vide" le tampon
+}
 
-void Teleplot_ajout_ou_envoie_tampon(char * message){
+/// @brief Ajoute un message au tampon de téléplot
+/// Si le tampon ne peut pas accueillir le prochain message, on envoie et on vide le tampon
+void Teleplot::ajout_ou_envoie_tampon(char * message){
     // Si le tampon ne peut pas accueillir le prochain message
     // On envoie et on vide le tampon
-    if(strlen(message) + strlen(teleplot_tampon) > BEACON_MSG_LEN_MAX){
-        Teleplot_envoie_tampon();
+    if(strlen(message) + strlen(this->tampon) > BEACON_MSG_LEN_MAX){
+        this->envoie_tampon();
     }
     // On ajoute le message au tampon
-    strcat(teleplot_tampon, message);
+    strcat(this->tampon, message);
+}
+
+/// @brief Ajoute une variable flottante au tampon de téléplot
+void Teleplot::add_variable_float_2decimal(const char * nom_variable, float valeur){
+    char buf[100];
+    sprintf(buf, ">%s:%lu:%.2f\n", nom_variable, this->get_temps(), valeur);
+    this->ajout_ou_envoie_tampon(buf);
+}
+
+/// @brief Ajoute une variable entière au tampon de téléplot
+void Teleplot::add_variable_int(char * nom_variable, int valeur){
+    char buf[100];
+    sprintf(buf, ">%s:%lu:%d\n", nom_variable, this->get_temps(), valeur);
+    this->ajout_ou_envoie_tampon(buf);
+}
+
+/// @brief Ajoute une variable 2D au tampon de téléplot
+void Teleplot::add_variable_2d(char * nom_variable, float x, float y){
+    char buf[100];
+    sprintf(buf, ">%s:%.2f:%.2f:%lu|xy\n", nom_variable, x, y, this->get_temps());
+    this->ajout_ou_envoie_tampon(buf);
+}
+
+/// @brief Ajoute un status au tampon de téléplot
+ void Teleplot::add_status(char* nom_variable, char* status) {
+    char buf[100];
+    sprintf(buf, ">%s:%lu:%s|t\n", nom_variable, this->get_temps(), status);
+    this->ajout_ou_envoie_tampon(buf);
+}
+
+/// @brief Ajoute un cube au tampon de téléplot
+/// @param param Paramètres du cube à ajouter
+/// @note Les paramètres du cube sont dans l'ordre : nom, position (x, y, z), taille (width, height, depth), rotation (quat_x, quat_y, quat_z, quat_w), couleur et transparence (optionnel).
+/// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
+void Teleplot::add_cube(cube_parameters param) {
+    char buf[200];
+    sprintf(buf, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s",
+        param.nom_forme,
+        this->get_temps(),
+        param.pos_x,
+        param.pos_y,
+        param.pos_z,
+        param.quat_x,
+        param.quat_y,
+        param.quat_z,
+        param.quat_w,
+        param.width,
+        param.height,
+        param.depth,
+        param.color,
+        param.transparency
+    );
+    this->ajout_ou_envoie_tampon(buf);
 
 }
 
-void Teleplot_add_variable_float_2decimal(const char * nom_variable, float valeur){
-    char tampon[100];
-    sprintf(tampon, ">%s:%lu:%.2f\n", nom_variable, Teleplot_get_temps(), valeur);
-    Teleplot_ajout_ou_envoie_tampon(tampon);
+/// @brief Ajoute une sphère au tampon de téléplot
+/// @param param Paramètres de la sphère à ajouter
+/// @note Les paramètres de la sphère sont dans l'ordre : nom, position (x, y, z), rayon, précision (nombre de rectangles), rotation (quat_x, quat_y, quat_z, quat_w), couleur et transparence (optionnel).
+/// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
+void Teleplot::add_sphere(sphere_parameters param) {
+    char buf[200];
+    sprintf(buf, ">3d|%s:%lu:S:sphere:P:%s:%s:%s:RA:%s:PR:%s:Q:%s:%s:%s:%s:C:%s:O:%s",
+        param.nom_forme,
+        this->get_temps(),
+        param.pos_x,
+        param.pos_y,
+        param.pos_z,
+        param.radius,
+        param.precision,
+        param.quat_x,
+        param.quat_y,
+        param.quat_z,
+        param.quat_w,
+        param.color,
+        param.transparency
+    );
+    this->ajout_ou_envoie_tampon(buf);
 }
 
-void Teleplot_add_variable_int(char * nom_variable, int valeur){
-    char tampon[100];
-    sprintf(tampon, ">%s:%lu:%d\n", nom_variable, Teleplot_get_temps(), valeur);
-    Teleplot_ajout_ou_envoie_tampon(tampon);
-}
-
-void Teleplot_add_variable_2d(char * nom_variable, float x, float y){
-    char tampon[100];
-    sprintf(tampon, ">%s:%.2f:%.2f:%lu|xy\n", nom_variable, x, y, Teleplot_get_temps());
-    Teleplot_ajout_ou_envoie_tampon(tampon);
-}

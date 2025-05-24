@@ -123,12 +123,12 @@ void VelocityController::setSpinShutdown   (bool spinShutdown)   {
 
 
 #if ENABLE_VELOCITYCONTROLLER_LOGS
-void VelocityControllerLogs::process(float timestep){
-	Teleplot_add_variable_float_2decimal("m_rampLinVelSetpoint", m_controller->m_rampLinVelSetpoint);
-	Teleplot_add_variable_float_2decimal("m_linInput", m_controller->m_linInput);
-	Teleplot_add_variable_float_2decimal("m_linVelOutput", m_controller->m_linVelOutput);
-	Teleplot_add_variable_float_2decimal("m_rampAngVelSetpoint", m_controller->m_rampAngVelSetpoint);
-	Teleplot_add_variable_float_2decimal("m_angInput", m_controller->m_angInput);
-	Teleplot_add_variable_float_2decimal("m_angVelOutput", m_controller->m_angVelOutput);
+void VelocityControllerLogs::process(float timestep, Teleplot &teleplot){
+	teleplot.add_variable_float_2decimal("m_rampLinVelSetpoint", m_controller->m_rampLinVelSetpoint);
+	teleplot.add_variable_float_2decimal("m_linInput", m_controller->m_linInput);
+	teleplot.add_variable_float_2decimal("m_linVelOutput", m_controller->m_linVelOutput);
+	teleplot.add_variable_float_2decimal("m_rampAngVelSetpoint", m_controller->m_rampAngVelSetpoint);
+	teleplot.add_variable_float_2decimal("m_angInput", m_controller->m_angInput);
+	teleplot.add_variable_float_2decimal("m_angVelOutput", m_controller->m_angVelOutput);
 };
 #endif // ENABLE_VELOCITYCONTROLLER_LOGS
