@@ -46,7 +46,7 @@ void Teleplot::envoie_tampon(){
 void Teleplot::ajout_ou_envoie_tampon(char * message){
     // Si le tampon ne peut pas accueillir le prochain message
     // On envoie et on vide le tampon
-    if(strlen(message) + strlen(this->tampon) > BEACON_MSG_LEN_MAX){
+    if(strlen(message) + strlen(this->tampon) >= BEACON_MSG_LEN_MAX){
         this->envoie_tampon();
     }
     // On ajoute le message au tampon
