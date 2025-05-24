@@ -131,3 +131,11 @@ void Teleplot::add_sphere(sphere_parameters param) {
     this->ajout_ou_envoie_tampon(buf);
 }
 
+/// @brief Ajoute un message de log au tampon de téléplot
+/// @param message Le message à ajouter au tampon
+void Teleplot::add_log(const char *message) {
+    char buf[200];
+    sprintf(buf, ">%lu:%s\n", this->get_temps(), message);
+    this->ajout_ou_envoie_tampon(buf);
+}
+

@@ -82,6 +82,8 @@ public:
     void add_cube(cube_parameters param);
 
     void add_sphere(sphere_parameters param);
+
+    void add_log(const char *message);
 };
 
 #endif
