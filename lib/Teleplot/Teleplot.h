@@ -10,46 +10,46 @@
 #define BEACON_MSG_LEN_MAX 256
 
 typedef struct cube_parameters{
-    char* nom_forme;
+    const char* nom_forme;
     // position
-    char * pos_x;
-    char * pos_y;
-    char * pos_z;
+    const char * pos_x;
+    const char * pos_y;
+    const char * pos_z;
     // taille
-    char * width;
-    char * height;
-    char * depth;
+    const char * width;
+    const char * height;
+    const char * depth;
     // rotation (quaternion)
-    char * quat_x;
-    char * quat_y;
-    char * quat_z;
-    char * quat_w;
+    const char * quat_x;
+    const char * quat_y;
+    const char * quat_z;
+    const char * quat_w;
     //color
-    char* color;
+    const char* color;
     // transparency
-    char * transparency;
+    const char * transparency;
 } cube_parameters;
 
 typedef struct sphere_parameters{
-    char* nom_forme;
+    const char* nom_forme;
     // position
-    char * pos_x;
-    char * pos_y;
-    char * pos_z;
+    const char * pos_x;
+    const char * pos_y;
+    const char * pos_z;
 
-    char * radius;
+    const char * radius;
 
     // rotation (quaternion)
-    char * quat_x;
-    char * quat_y;
-    char * quat_z;
-    char * quat_w;
+    const char * quat_x;
+    const char * quat_y;
+    const char * quat_z;
+    const char * quat_w;
 
-    char * precision; // precision of the sphere, how many rectangle to draw it
+    const char * precision; // precision of the sphere, how many rectangle to draw it
     // color
-    char* color;
+    const char* color;
     // transparency
-    char * transparency;
+    const char * transparency;
 } sphere_parameters;
 
 class Teleplot {
