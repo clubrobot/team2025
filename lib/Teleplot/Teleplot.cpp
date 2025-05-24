@@ -55,29 +55,29 @@ void Teleplot::ajout_ou_envoie_tampon(char * message){
 
 /// @brief Ajoute une variable flottante au tampon de téléplot
 void Teleplot::add_variable_float_2decimal(const char * nom_variable, float valeur){
-    char buf[100];
-    sprintf(buf, ">%s:%lu:%.2f\n", nom_variable, this->get_temps(), valeur);
+    char buf[INTERNAL_BUFFER_SIZE];
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">%s:%lu:%.2f\n", nom_variable, this->get_temps(), valeur);
     this->ajout_ou_envoie_tampon(buf);
 }
 
 /// @brief Ajoute une variable entière au tampon de téléplot
 void Teleplot::add_variable_int(char * nom_variable, int valeur){
-    char buf[100];
-    sprintf(buf, ">%s:%lu:%d\n", nom_variable, this->get_temps(), valeur);
+    char buf[INTERNAL_BUFFER_SIZE];
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">%s:%lu:%d\n", nom_variable, this->get_temps(), valeur);
     this->ajout_ou_envoie_tampon(buf);
 }
 
 /// @brief Ajoute une variable 2D au tampon de téléplot
 void Teleplot::add_variable_2d(char * nom_variable, float x, float y){
-    char buf[100];
-    sprintf(buf, ">%s:%.2f:%.2f:%lu|xy\n", nom_variable, x, y, this->get_temps());
+    char buf[INTERNAL_BUFFER_SIZE];
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">%s:%.2f:%.2f:%lu|xy\n", nom_variable, x, y, this->get_temps());
     this->ajout_ou_envoie_tampon(buf);
 }
 
 /// @brief Ajoute un status au tampon de téléplot
  void Teleplot::add_status(char* nom_variable, char* status) {
-    char buf[100];
-    sprintf(buf, ">%s:%lu:%s|t\n", nom_variable, this->get_temps(), status);
+    char buf[INTERNAL_BUFFER_SIZE];
+    snprintf(buf,INTERNAL_BUFFER_SIZE, ">%s:%lu:%s|t\n", nom_variable, this->get_temps(), status);
     this->ajout_ou_envoie_tampon(buf);
 }
 
@@ -135,7 +135,7 @@ void Teleplot::add_sphere(sphere_parameters param) {
 /// @param message Le message à ajouter au tampon
 void Teleplot::add_log(const char *message) {
     char buf[INTERNAL_BUFFER_SIZE];
-    sprintf(buf, ">%lu:%s\n", this->get_temps(), message);
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">%lu:%s\n", this->get_temps(), message);
     this->ajout_ou_envoie_tampon(buf);
 }
 
