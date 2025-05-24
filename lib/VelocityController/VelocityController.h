@@ -2,10 +2,11 @@
 #define __VELOCITYCONTROLLER_H__
 
 #include "DifferentialController.h"
+#include "Teleplot.h"
 
 #include <math.h>
 
-#define ENABLE_VELOCITYCONTROLLER_LOGS 0        // for debug purposes
+#define ENABLE_VELOCITYCONTROLLER_LOGS 1        // for debug purposes
 #define VELOCITYCONTROLLER_LOGS_TIMESTEP 20e-3 // mm
 
 /**
@@ -153,7 +154,7 @@ public:
     void setController(const VelocityController &controller) { m_controller = &controller; }
 
 protected:
-    virtual void process(float timestep, Teleplot &teleplot) override;
+    virtual void process(float timestep, Teleplot &teleplot);
 
     const VelocityController *m_controller;
 };
