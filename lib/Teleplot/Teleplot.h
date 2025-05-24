@@ -62,23 +62,23 @@ private:
 public:
     void send_string();
 
-    long get_temps(void) const;
+    long get_temps() const;
 
-    void fige_temps(void);
+    void fige_temps();
 
-    void relache_temps(void);
+    void relache_temps();
 
-    void envoie_tampon(void);
+    void envoie_tampon();
 
-    void ajout_ou_envoie_tampon(char *message);
+    void ajout_ou_envoie_tampon(const char *message);
 
-    void add_variable_float_2decimal(const char *nom_variable, float valeur);
+    void add_variable_float_2decimal(const char *nom_variable, const float valeur);
 
-    void add_variable_int(const char *nom_variable, int valeur);
+    void add_variable_int(const char *nom_variable, const int valeur);
 
-    void add_variable_2d(char *nom_variable, float x, float y);
+    void add_variable_2d(const char *nom_variable, const float x, const float y);
 
-    void add_status(char* nom_variable, char* status);
+    void add_status(const char* nom_variable, const char* status);
 
     void add_cube(cube_parameters param);
 
