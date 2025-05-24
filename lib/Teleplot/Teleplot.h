@@ -8,6 +8,7 @@
 #include <Logger.h>
 
 #define BEACON_MSG_LEN_MAX 256
+#define INTERNAL_BUFFER_SIZE 200
 
 typedef struct cube_parameters{
     const char* nom_forme;

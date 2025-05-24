@@ -86,8 +86,8 @@ void Teleplot::add_variable_2d(char * nom_variable, float x, float y){
 /// @note Les paramètres du cube sont dans l'ordre : nom, position (x, y, z), taille (width, height, depth), rotation (quat_x, quat_y, quat_z, quat_w), couleur et transparence (optionnel).
 /// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
 void Teleplot::add_cube(cube_parameters param) {
-    char buf[200];
-    sprintf(buf, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s",
+    char buf[INTERNAL_BUFFER_SIZE];
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s",
         param.nom_forme,
         this->get_temps(),
         param.pos_x,
@@ -112,8 +112,8 @@ void Teleplot::add_cube(cube_parameters param) {
 /// @note Les paramètres de la sphère sont dans l'ordre : nom, position (x, y, z), rayon, précision (nombre de rectangles), rotation (quat_x, quat_y, quat_z, quat_w), couleur et transparence (optionnel).
 /// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
 void Teleplot::add_sphere(sphere_parameters param) {
-    char buf[200];
-    sprintf(buf, ">3d|%s:%lu:S:sphere:P:%s:%s:%s:RA:%s:PR:%s:Q:%s:%s:%s:%s:C:%s:O:%s",
+    char buf[INTERNAL_BUFFER_SIZE];
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:sphere:P:%s:%s:%s:RA:%s:PR:%s:Q:%s:%s:%s:%s:C:%s:O:%s",
         param.nom_forme,
         this->get_temps(),
         param.pos_x,
@@ -134,7 +134,7 @@ void Teleplot::add_sphere(sphere_parameters param) {
 /// @brief Ajoute un message de log au tampon de téléplot
 /// @param message Le message à ajouter au tampon
 void Teleplot::add_log(const char *message) {
-    char buf[200];
+    char buf[INTERNAL_BUFFER_SIZE];
     sprintf(buf, ">%lu:%s\n", this->get_temps(), message);
     this->ajout_ou_envoie_tampon(buf);
 }
