@@ -5,7 +5,7 @@
 
 #include <math.h>
 
-#define ENABLE_VELOCITYCONTROLLER_LOGS false     // for debug purposes
+#define ENABLE_VELOCITYCONTROLLER_LOGS 0        // for debug purposes
 #define VELOCITYCONTROLLER_LOGS_TIMESTEP 20e-3 // mm
 
 /**
