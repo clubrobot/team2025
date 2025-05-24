@@ -14,7 +14,7 @@ void Teleplot::send_string(){
 /// @brief Renvoi le temps en milliseconde, le temps réel ou le temps figé
 /// @param
 /// @return temps en millisecondes
-long Teleplot::get_temps() const{
+unsigned long Teleplot::get_temps() const{
     if(this->temps_fige){
         return this->temps_ms;
     }

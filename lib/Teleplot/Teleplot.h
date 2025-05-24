@@ -62,7 +62,7 @@ private:
 public:
     void send_string();
 
-    long get_temps() const;
+    unsigned long get_temps() const;
 
     void fige_temps();
 
