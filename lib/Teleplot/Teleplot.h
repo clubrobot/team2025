@@ -74,7 +74,7 @@ public:
 
     void add_variable_float_2decimal(const char *nom_variable, float valeur);
 
-    void add_variable_int(char *nom_variable, int valeur);
+    void add_variable_int(const char *nom_variable, int valeur);
 
     void add_variable_2d(char *nom_variable, float x, float y);
 
