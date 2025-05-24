@@ -87,7 +87,7 @@ void Teleplot::add_variable_2d(const char * nom_variable, const float x, const f
 /// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
 void Teleplot::add_cube(cube_parameters param) {
     char buf[INTERNAL_BUFFER_SIZE];
-    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s",
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s\n",
         param.nom_forme,
         this->get_temps(),
         param.pos_x,
@@ -113,7 +113,7 @@ void Teleplot::add_cube(cube_parameters param) {
 /// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
 void Teleplot::add_sphere(sphere_parameters param) {
     char buf[INTERNAL_BUFFER_SIZE];
-    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:sphere:P:%s:%s:%s:RA:%s:PR:%s:Q:%s:%s:%s:%s:C:%s:O:%s",
+    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:sphere:P:%s:%s:%s:RA:%s:PR:%s:Q:%s:%s:%s:%s:C:%s:O:%s\n",
         param.nom_forme,
         this->get_temps(),
         param.pos_x,
