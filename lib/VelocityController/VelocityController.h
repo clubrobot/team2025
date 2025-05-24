@@ -153,7 +153,7 @@ public:
     void setController(const VelocityController &controller) { m_controller = &controller; }
 
 protected:
-    virtual void process(float timestep, Teleplot &teleplot);
+    virtual void process(float timestep, Teleplot &teleplot) override;
 
     const VelocityController *m_controller;
 };
