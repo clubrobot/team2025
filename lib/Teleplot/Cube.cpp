@@ -184,7 +184,7 @@ void Cube::setQuatW(float w) {
     this->modified_mask |= MASK_QUAT_W;
 }
 void Cube::setColor(char* c) {
-    this->color = c;
+    strcpy(this->color, c);
     this->modified_mask |= MASK_COLOR;
 }
 void Cube::setTransparency(float t) {
