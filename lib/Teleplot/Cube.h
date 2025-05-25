@@ -155,7 +155,7 @@ public:
     void sendCubeToTeleplot(Teleplot &teleplot);
 
 private:
-    static const char NAME_LENGTH = INTERNAL_BUFFER_SIZE;
+    static constexpr size_t NAME_LENGTH = INTERNAL_BUFFER_SIZE;
     static const char NUMBER_PRECISION = 20;
     const short MASK_NAME =         0b0000000000000001;
     const short MASK_POS_X =        0b0000000000000010;
