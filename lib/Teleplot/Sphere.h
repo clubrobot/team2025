@@ -132,6 +132,9 @@ public:
     void sendSphereToTeleplot(Teleplot &teleplot);
 
 private:
+    static const char NAME_LENGTH = 50; // Length of the shape name
+    static const char NUMBER_PRECISION = 20; // Precision for floating point numbers
+
     const short MASK_NAME =         0b0000000000000001;
     const short MASK_POS_X =        0b0000000000000010;
     const short MASK_POS_Y =        0b0000000000000100;
@@ -145,34 +148,34 @@ private:
     const short MASK_COLOR =        0b0000100000000000;
     const short MASK_TRANSPARENCY = 0b0001000000000000;
 
-    const char* nom_forme;
+    const char nom_forme[NAME_LENGTH]; // Name of the sphere, initialized to an empty string
     // position
     float pos_x;
     float pos_y;
     float pos_z;
-    char * r_pos_x;
-    char * r_pos_y;
-    char * r_pos_z;
+    char r_pos_x[NUMBER_PRECISION];
+    char r_pos_y[NUMBER_PRECISION];
+    char r_pos_z[NUMBER_PRECISION];
     // radius
     float radius;
-    char * r_radius;
+    char r_radius[NUMBER_PRECISION];
     // precision
     int precision;
-    char * r_precision;
+    char r_precision[NUMBER_PRECISION];
     // rotation (quaternion)
     float quat_x;
     float quat_y;
     float quat_z;
     float quat_w;
-    char * r_quat_x;
-    char * r_quat_y;
-    char * r_quat_z;
-    char * r_quat_w;
+    char r_quat_x[NUMBER_PRECISION];
+    char r_quat_y[NUMBER_PRECISION];
+    char r_quat_z[NUMBER_PRECISION];
+    char r_quat_w[NUMBER_PRECISION];
     //color
-    char* color;
+    char color[NUMBER_PRECISION];
     // transparency
     float transparency;
-    char* r_transparency;
+    char r_transparency[NUMBER_PRECISION];
 
     short modified_mask = 0; // Mask to track which parameters have been modified
     /**

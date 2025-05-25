@@ -200,7 +200,7 @@ const char* Cube::generateTeleplotMessage(unsigned long temps) {
     static char buf[INTERNAL_BUFFER_SIZE];
     snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s\n",
              this->nom_forme,
-             millis(),
+             temps,
              (this->modified_mask & MASK_POS_X) ? this->r_pos_x : "",
              (this->modified_mask & MASK_POS_Y) ? this->r_pos_y : "",
              (this->modified_mask & MASK_POS_Z) ? this->r_pos_z : "",
