@@ -19,7 +19,7 @@
 #include "team2025/TacheBanderole.h"
 
 
-#include <Teleplot_client.h>
+#include <Teleplot.h>
 
 namespace Automate {
     Logger auto_logs = Logger("AUTOMATE");

@@ -8,7 +8,7 @@
 #include <variables_globales.h>
 #include <Logger.h>
 #include <Musique.h>
-#include <Teleplot_client.h>
+#include <Teleplot.h>
 #include <team2025/TacheBanderole.h>
 
 #include "ihm/ihm.h"
