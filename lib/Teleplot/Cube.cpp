@@ -23,7 +23,7 @@ Cube::Cube(char* nom_forme, float pos_x, float pos_y, float pos_z,
     this->transparency = transparency;
     char voidBuf[INTERNAL_BUFFER_SIZE] = "";
     char buf[INTERNAL_BUFFER_SIZE] = "";
-    snprintf(buf, INTERNAL_BUFFER_SIZE, "%f", pos_x);;
+    snprintf(buf, INTERNAL_BUFFER_SIZE, "%f", pos_x);
     strcpy(this->r_pos_x, buf);
     strcpy(buf, voidBuf);
     snprintf(buf, INTERNAL_BUFFER_SIZE, "%f", pos_y);
