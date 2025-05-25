@@ -148,7 +148,7 @@ private:
     const short MASK_COLOR =        0b0000100000000000;
     const short MASK_TRANSPARENCY = 0b0001000000000000;
 
-    const char nom_forme[NAME_LENGTH]; // Name of the sphere, initialized to an empty string
+    char nom_forme[NAME_LENGTH]; // Name of the sphere, initialized to an empty string
     // position
     float pos_x;
     float pos_y;

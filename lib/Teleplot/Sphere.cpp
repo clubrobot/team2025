@@ -7,7 +7,7 @@
 Sphere::Sphere(char* nom_forme, float pos_x, float pos_y, float pos_z,
                float radius, float quat_x, float quat_y, float quat_z, float quat_w,
                int precision, char* color, float transparency) {
-    this->nom_forme = nom_forme;
+    strcpy(this->nom_forme, nom_forme);
     this->pos_x = pos_x;
     this->pos_y = pos_y;
     this->pos_z = pos_z;
@@ -17,7 +17,7 @@ Sphere::Sphere(char* nom_forme, float pos_x, float pos_y, float pos_z,
     this->quat_z = quat_z;
     this->quat_w = quat_w;
     this->precision = precision;
-    this->color = color;
+    strcpy(this->color, color);
     this->transparency = transparency;
 
     char voidBuf[INTERNAL_BUFFER_SIZE] = "";
