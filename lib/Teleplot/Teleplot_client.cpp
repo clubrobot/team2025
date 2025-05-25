@@ -2,7 +2,7 @@
 // Created by boris on 5/21/25.
 //
 
-#include "Teleplot.h"
+#include "Teleplot_client.h"
 
 
 
@@ -78,56 +78,6 @@ void Teleplot::add_variable_2d(const char * nom_variable, const float x, const f
  void Teleplot::add_status(const char* nom_variable, const char* status) {
     char buf[INTERNAL_BUFFER_SIZE];
     snprintf(buf,INTERNAL_BUFFER_SIZE, ">%s:%lu:%s|t\n", nom_variable, this->get_temps(), status);
-    this->ajout_ou_envoie_tampon(buf);
-}
-
-/// @brief Ajoute un cube au tampon de téléplot
-/// @param param Paramètres du cube à ajouter
-/// @note Les paramètres du cube sont dans l'ordre : nom, position (x, y, z), taille (width, height, depth), rotation (quat_x, quat_y, quat_z, quat_w), couleur et transparence (optionnel).
-/// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
-void Teleplot::add_cube(cube_parameters param) {
-    char buf[INTERNAL_BUFFER_SIZE];
-    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:cube:P:%s:%s:%s:Q:%s:%s:%s:%s:W:%s:H:%s:D:%s:C:%s:O:%s\n",
-        param.nom_forme,
-        this->get_temps(),
-        param.pos_x,
-        param.pos_y,
-        param.pos_z,
-        param.quat_x,
-        param.quat_y,
-        param.quat_z,
-        param.quat_w,
-        param.width,
-        param.height,
-        param.depth,
-        param.color,
-        param.transparency
-    );
-    this->ajout_ou_envoie_tampon(buf);
-
-}
-
-/// @brief Ajoute une sphère au tampon de téléplot
-/// @param param Paramètres de la sphère à ajouter
-/// @note Les paramètres de la sphère sont dans l'ordre : nom, position (x, y, z), rayon, précision (nombre de rectangles), rotation (quat_x, quat_y, quat_z, quat_w), couleur et transparence (optionnel).
-/// @note On peut réutiliser la dernière valeur en ne remplissant que les paramètres modifiés
-void Teleplot::add_sphere(sphere_parameters param) {
-    char buf[INTERNAL_BUFFER_SIZE];
-    snprintf(buf, INTERNAL_BUFFER_SIZE, ">3d|%s:%lu:S:sphere:P:%s:%s:%s:RA:%s:PR:%s:Q:%s:%s:%s:%s:C:%s:O:%s\n",
-        param.nom_forme,
-        this->get_temps(),
-        param.pos_x,
-        param.pos_y,
-        param.pos_z,
-        param.radius,
-        param.precision,
-        param.quat_x,
-        param.quat_y,
-        param.quat_z,
-        param.quat_w,
-        param.color,
-        param.transparency
-    );
     this->ajout_ou_envoie_tampon(buf);
 }
 
