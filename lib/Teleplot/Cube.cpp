@@ -56,6 +56,10 @@ Cube::Cube(const char* nom_forme, float pos_x, float pos_y, float pos_z,
     this->color = color;
     snprintf(buf, INTERNAL_BUFFER_SIZE, "%f", transparency);
     strcpy(this->r_transparency, buf);
+    this->modified_mask |= (MASK_NAME | MASK_POS_X | MASK_POS_Y | MASK_POS_Z |
+                            MASK_WIDTH | MASK_HEIGHT | MASK_DEPTH |
+                            MASK_QUAT_X | MASK_QUAT_Y | MASK_QUAT_Z | MASK_QUAT_W |
+                            MASK_COLOR | MASK_TRANSPARENCY);
 }
 
 void Cube::setPosition(float x, float y, float z) {
