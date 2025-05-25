@@ -27,7 +27,7 @@ public:
      * @param color
      * @param transparency
      */
-    Cube(const char* nom_forme, float pos_x, float pos_y, float pos_z,
+    Cube(char* nom_forme, float pos_x, float pos_y, float pos_z,
          float width, float height, float depth,
          float quat_x, float quat_y, float quat_z, float quat_w,
          char* color, float transparency);
@@ -171,7 +171,7 @@ private:
     const short MASK_COLOR =        0b0000100000000000;
     const short MASK_TRANSPARENCY = 0b0001000000000000;
 
-    const char nom_forme[NAME_LENGTH];
+    char nom_forme[NAME_LENGTH];
     // position
     float pos_x;
     float pos_y;

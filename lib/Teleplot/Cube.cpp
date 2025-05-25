@@ -4,11 +4,11 @@
 
 #include "Cube.h"
 
-Cube::Cube(const char* nom_forme, float pos_x, float pos_y, float pos_z,
+Cube::Cube(char* nom_forme, float pos_x, float pos_y, float pos_z,
            float width, float height, float depth,
            float quat_x, float quat_y, float quat_z, float quat_w,
            char* color, float transparency) {
-    this->nom_forme = nom_forme;
+    strcpy(this->nom_forme, nom_forme);
     this->pos_x = pos_x;
     this->pos_y = pos_y;
     this->pos_z = pos_z;
@@ -19,7 +19,7 @@ Cube::Cube(const char* nom_forme, float pos_x, float pos_y, float pos_z,
     this->quat_y = quat_y;
     this->quat_z = quat_z;
     this->quat_w = quat_w;
-    this->color = color;
+    strcpy(this->color, color);
     this->transparency = transparency;
     char voidBuf[INTERNAL_BUFFER_SIZE] = "";
     char buf[INTERNAL_BUFFER_SIZE] = "";
@@ -53,7 +53,6 @@ Cube::Cube(const char* nom_forme, float pos_x, float pos_y, float pos_z,
     snprintf(buf, INTERNAL_BUFFER_SIZE, "%f", quat_w);
     strcpy(this->r_quat_w, buf);
     strcpy(buf, voidBuf);
-    this->color = color;
     snprintf(buf, INTERNAL_BUFFER_SIZE, "%f", transparency);
     strcpy(this->r_transparency, buf);
     this->modified_mask |= (MASK_NAME | MASK_POS_X | MASK_POS_Y | MASK_POS_Z |
