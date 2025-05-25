@@ -2,7 +2,7 @@
 #define __VELOCITYCONTROLLER_H__
 
 #include "DifferentialController.h"
-#include "Teleplot_client.h"
+#include "Teleplot.h"
 
 #include <math.h>
 
