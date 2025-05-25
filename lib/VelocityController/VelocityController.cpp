@@ -3,7 +3,7 @@
 
 #include "VelocityController.h"
 #include "mathutils.h"
-#include "Teleplot_client.h"
+#include "Teleplot.h"
 
 
 float VelocityController::genRampSetpoint(float stepSetpoint, float input, float rampSetpoint, float maxAcc, float maxDec, float timestep)
